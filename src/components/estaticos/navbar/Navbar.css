@@ -1,0 +1,24 @@
+.bg-color {
+  background-color: #fd841f;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.itens h5 {
+  font-weight: bold;
+}
+
+.color-itens {
+  color: #001524;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: "Bahnschrift";
+}
+
+.color-itens:hover {
+  color: inherit;
+  border-bottom: 3px solid white;
+}

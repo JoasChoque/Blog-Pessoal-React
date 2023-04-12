@@ -1,0 +1,13 @@
+.rodape {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icons {
+  font-size: 60;
+}
+
+a {
+  text-decoration: none;
+}
