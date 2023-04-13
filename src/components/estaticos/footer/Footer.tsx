@@ -11,29 +11,29 @@ function Footer() {
         <>
             <Grid container direction="row" justifyContent="center" alignItems="center">
                 <Grid alignItems="center" item xs={12}>
-                    <Box style={{ backgroundColor: "#454545", height: "120px" }}>
+                    <Box className='box1'>
                         <Box paddingTop={3} display="flex" alignItems="center" justifyContent="center">
-                            <Typography variant="h5" align="center" gutterBottom style={{ color: "white" }}>Contate-me pelas redes sociais!</Typography>
+                            <Typography variant="h5" align="center" gutterBottom className='texto'>Contate-me pelas redes sociais!</Typography>
                         </Box>
                         <Box className='rodape' >
                             <a href="https://github.com/JoasChoque" target="_blank">
-                                <GitHubIcon style={{ fontSize: 40, color: "white" }} />
+                                <GitHubIcon className='icons'  />
                             </a>
                             <a href="https://mail.google.com" target="_blank">
-                                <EmailIcon style={{ fontSize: 40, color: "white" }} />
+                                <EmailIcon className='icons' />
                             </a>
                             <a href="https://www.linkedin.com/school/generationbrasil/" target="_blank">
-                                <LinkedInIcon style={{ fontSize: 40, color: "white" }} />
+                                <LinkedInIcon className='icons' />
                             </a>
                         </Box>
                     </Box>
-                    <Box style={{ backgroundColor: "#454545", height: "60px" }}>
+                    <Box className='box2'>
                         <Box paddingTop={1}>
-                            <Typography variant="subtitle2" align="center" gutterBottom style={{ color: "white" }} >© 2023 Copyright:</Typography>
+                            <Typography variant="subtitle2" align="center" gutterBottom className='texto' >© 2023 Copyright:</Typography>
                         </Box>
                         <Box>
                             <a target="_blank" href="https://github.com/JoasChoque">
-                                <Typography variant="subtitle2" gutterBottom style={{ color: "white" }} align="center">Joas Choque</Typography>
+                                <Typography variant="subtitle2" gutterBottom className='texto' align="center">Joas Choque</Typography>
                             </a>
                         </Box>
                     </Box>

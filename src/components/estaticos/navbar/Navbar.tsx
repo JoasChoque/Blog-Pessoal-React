@@ -1,7 +1,9 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { Box } from '@mui/material';
-import './Navbar.css';
+import {Link} from 'react-router-dom';
+
+import './Navbar.css'
 
 //variant = "h5" -> transforma o texto em um h5
 function Navbar() {
@@ -10,7 +12,7 @@ function Navbar() {
             <AppBar position="static" className='bg-color'>
                 <Toolbar variant="dense" className='container'>
                     <Box className='itens'>
-                        <Typography variant="h5" color="inherit" style={{ cursor: "pointer"}}>
+                        <Typography variant="h5" color="inherit" className='cursor'>
                             BlogPessoal
                         </Typography>
                     </Box>
@@ -36,11 +38,14 @@ function Navbar() {
                                 Cadastrar Tema
                             </Typography>
                         </Box>
-                        <Box mx={1} className='itens'>
+
+                        <Link to='/login' className='text-decorator-none'>
+                        <Box mx={1} className='itens' color='white'>
                             <Typography variant="h6" className='color-itens'>
                                 Logout
                             </Typography>
                         </Box>
+                        </Link>
                     </Box>
 
                 </Toolbar>

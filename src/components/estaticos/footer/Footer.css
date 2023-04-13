@@ -5,9 +5,24 @@
 }
 
 .icons {
-  font-size: 60;
+  font-size: 40px;
+  color: white;
 }
 
 a {
   text-decoration: none;
+}
+
+.box1{
+  background-color: #454545;
+  height: 120px;
+}
+
+.box2{
+  background-color: #454545;
+  height: 60px;
+}
+
+.texto{
+  color: white;
 }
