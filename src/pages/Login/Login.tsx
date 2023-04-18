@@ -10,9 +10,19 @@ import UserLogin from '../../models/UserLogin';
 
 function Login() {
 
+    //redireciona o usuario para determinada pagina
     let history = useNavigate();
+
+    //Hooks para manipular LocalStorage, atualizando o token -> são funções que ajudam a ver o ciclo de vida de um componente
+    //token="" -> começa vazio e não pode ser alterada diretamente
+    //setToken -> função que muda 
     const [token,setToken] = useLocalStorage('token');
 
+    //useState serve para criar constante com os modelos de objeto
+    // para ir renderizando o componente sempre que alterado
+
+    //campos são inseridos para poder criar um objeto inicial e encima dele ir alterando os valores
+    //e ir criando novos    
     const [userLogin, setUserLogin] = useState<UserLogin>({
         id: 0,
         nome: '',
@@ -22,8 +32,12 @@ function Login() {
         token: ''
     });
 
+    //função que atualiza o valor da UserLogin através da setUserLogin
+    //ChangeEvent -> acionado sempre que algo muda
+    //<HTMLInputElement> -> Tipagem da mudança, origem da mudança, como é login, é um valor imput de texto
     function updateModel(e:ChangeEvent<HTMLInputElement>){
-        setUserLogin({
+        setUserLogin({ //-> se usa o valor {} por ser criado um objeto
+            //... -> spreadOperator, observa o objeto e 
             ...userLogin,
             //e.target.name= pega o campo pelo nome dele(propriedade)
             //e.target.value = pega o valor digititado(valor)
@@ -31,16 +45,24 @@ function Login() {
         })
     }
 
+    //hook useEffect permite executar funções sempre que alguma variavel sofrer alterações
     useEffect(()=>{
         if(token != ''){
             history('/home')
         }
-    },[token])
+    },[token]) //-> array de dependencia, quando esse valor mudar, o useEffect muda tbm
 
+
+    //função para logar
     async function onSubmit(e:ChangeEvent<HTMLFormElement>) {
+        //tirar o comportamento padrão de recarregamento de página no SPA ao enviar formulário
         e.preventDefault();
 
         try{
+            //login(rota,dados,valor do token)
+            //`/usuarios/logar` ->rota
+            //userLogin -> Variavel contendo os dados
+            //setToken -> definida na service, para pegar o valor do token
            await login (`/usuarios/logar`,userLogin,setToken)
             
             alert('Usuário logado com sucesso')
