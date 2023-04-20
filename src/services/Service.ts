@@ -21,3 +21,14 @@ export const login = async(url:any,dados:any,setDado:any)=>{
     setDado(resposta.data.token)
 }
 
+//header neste caso, é o valor do token gerado após logar
+//para mostrar as postagens o usuário precisa estar logado, logo precisa de um token
+export const busca = async(url:any,setDado:any,header:any)=>{
+
+    //esperando resposta via get com um caminho e um token
+    const resposta = await api.get(url,header)
+
+    //uma ver armazenados os dados, da ao setDados os valores dos campos da model
+    setDado(resposta.data)
+}
+

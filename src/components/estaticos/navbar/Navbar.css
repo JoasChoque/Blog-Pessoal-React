@@ -11,6 +11,7 @@
   font-weight: bold;
 }
 
+
 .color-itens {
   color: #001524;
   cursor: pointer;
@@ -24,7 +25,7 @@
 }
 
 .text-decorator-none{
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .cursor{
