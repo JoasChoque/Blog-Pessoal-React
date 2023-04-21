@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import './Home.css';
 import { Button, Grid, Typography } from "@material-ui/core";
 import { Box } from "@mui/material";
 import TabPostagem from "../../components/postagens/tabPostagem/TabPostagem";
+import ModalPostagem from "../../components/postagens/modalPostagem/ModalPostagem";
+import { useNavigate } from "react-router-dom";
+import useLocalStorage from "react-use-localstorage";
 //p={x} -> Padding em todos os lados
 function Home() {
+    let navigate = useNavigate()
+
+    const[token,setToken]=useLocalStorage('token')
+
+    useEffect(()=>{
+        if(token ===''){
+            alert('Você precisa estar logado para poder utilizar este serviço')
+            navigate('/login')
+        }
+    },[token])
+
     return (
         <>
             <Grid container direction="row" justifyContent="center" alignItems="center" className="bg-home">
@@ -16,6 +30,7 @@ function Home() {
                     </Box>
                     <Box display="flex" justifyContent="center">
                         <Box marginRight={1}>
+                            <ModalPostagem/>
                         </Box>
                         <Button variant="outlined" className="botao">Ver Postagens</Button>
                     </Box>

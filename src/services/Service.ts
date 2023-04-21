@@ -32,3 +32,27 @@ export const busca = async(url:any,setDado:any,header:any)=>{
     setDado(resposta.data)
 }
 
+export const buscaID =async (url:any,setDado:any, header:any) => {
+    const resposta = await api.get(url,header)
+    setDado(resposta.data)
+}
+
+//comunicação posta utilizando 4 parametros
+//url -> caminho
+//dados -> dados passados
+//setDados -> function para alterar os valores dos dados
+//header -> token para poder autorizar o processo.
+export const post =async (url:any,dados:any,setDado:any, header:any) => {
+    const resposta = await api.post(url,dados,header)
+    setDado(resposta.data)
+}
+
+//Mesma lógica do post, porem com o verbo put
+export const put =async (url:any,dados:any,setDado:any, header:any) => {
+    const resposta = await api.put(url,dados,header)
+    setDado(resposta.data)
+}
+
+export const deleteId =async (url:any,header:any) => {
+    await api.delete(url,header)
+}

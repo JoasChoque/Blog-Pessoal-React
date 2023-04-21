@@ -53,7 +53,7 @@ function Navbar() {
                         </Box>
                         </Link>
 
-                        <Link to='formularioTema' className='text-decorator-none'>
+                        <Link to='/formularioTema' className='text-decorator-none'>
                         <Box mx={1} className='itens'>
                             <Typography variant="h6" className='color-itens'>
                                 Cadastrar Tema
