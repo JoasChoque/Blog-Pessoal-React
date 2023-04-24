@@ -10,126 +10,136 @@ import { busca, buscaID, post, put } from '../../../services/Service';
 function CadastroPost() {
     let navigate = useNavigate()
 
-    const {id} = useParams<{id:string}>();
+    const { id } = useParams<{ id: string }>();
 
-    const [token,setToken] = useLocalStorage('token')
+    const [token, setToken] = useLocalStorage('token')
 
     //usados para pegar os temas já cadastrados no BD
-    const [temas,setTemas] = useState<Tema[]>([])
+    const [temas, setTemas] = useState<Tema[]>([])
 
-    useEffect(()=>{
-        if(token === ''){
+    useEffect(() => {
+        if (token === '') {
             alert("Você precisa estar logado para acessar essa função!")
             navigate('/login')
         }
-    },[token])
+    }, [token])
 
     //armazena 1 tema especifico pelo id
-    const [tema,setTema] = useState<Tema>({
-        id:0,
-        descricao:''
+    const [tema, setTema] = useState<Tema>({
+        id: 0,
+        descricao: ''
     })
 
     //efetua o cadastro definitivo das postagens
-    const[postagem,setPostagem] = useState<Postagem>({
-        id:0,
-        titulo:'',
-        texto:'',
-        data:'',
-        tema:null
+    const [postagem, setPostagem] = useState<Postagem>({
+        id: 0,
+        titulo: '',
+        texto: '',
+        data: '',
+        tema: null
     })
 
-    useEffect(()=>{
+    useEffect(() => {
         setPostagem({
             ...postagem,
-            tema:tema
+            tema: tema
         })
-    },[tema])
+    }, [tema])
 
     //traz todos os temas e tbm faz a busca por id
-    useEffect(()=>{
+    useEffect(() => {
         getTemas()
-        if(id !== undefined){
+        if (id !== undefined) {
             findByIdPostagem(id)
         }
-    },[id])
+    }, [id])
 
     //cria o objeto,ou modificação a partir do select de temas
-    async function getTemas(){
-        await busca(`/temas`,setTemas,{
-            headers:{
-                'Authorization':token
+    async function getTemas() {
+        await busca(`/temas`, setTemas, {
+            headers: {
+                'Authorization': token
             }
         })
     }
 
     //faz busca pelo id e colocar o id na barra especifica
-    async function findByIdPostagem(id:string){
-        await buscaID(`/postagens/${id}`,setPostagem,{
-            headers:{
-                'Authorization':token
+    async function findByIdPostagem(id: string) {
+        await buscaID(`/postagens/${id}`, setPostagem, {
+            headers: {
+                'Authorization': token
             }
         })
     }
 
     //cria o objeto,ou modificação a partir dos inputs
-    function updatedPostagem(e:ChangeEvent<HTMLInputElement>){
+    function updatedPostagem(e: ChangeEvent<HTMLInputElement>) {
         setPostagem({
             ...postagem,
-            [e.target.name] : e.target.value,
-            tema:tema
+            [e.target.name]: e.target.value,
+            tema: tema
         })
     }
 
     //envio das informações ao apertar o botão de submit
-    async function onSubmit(e:ChangeEvent<HTMLFormElement>){
+    async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        if(id!==undefined){
-            put(`/postagens`,postagem,setPostagem,{
-                headers:{
-                    'Authorization':token
-                }
-            })
-            alert('Postagem atualizada com sucesso')
-        }
-        else{
-            post(`/postagens`,postagem,setPostagem,{
-                headers:{
-                    'Authorization':token
-                }
-            })
-            alert('Postagem cadastrada com sucesso')
+        if (id !== undefined) {
+            try {
+                await put(`/postagens`, postagem, setPostagem, {
+                    headers: {
+                        'Authorization': token
+                    }
+
+                })
+                alert('Postagem atualizada com sucesso')
+            } catch (error) {
+                alert('Erro ao atualizar sua postagem, verifique os campos!')
+            }
+        } else {
+            try {
+                await post(`/postagens`, postagem, setPostagem, {
+                    headers: {
+                        'Authorization': token
+                    }
+                })
+                alert('Postagem cadastrada com sucesso')
+            }
+            catch (error) {
+                alert('Erro ao cadastrar sua postagem, tente novamente!')
+            }
+
         }
         back()
     }
 
     //redirecionamento para a pagina de postagens
-    function back(){
+    function back() {
         navigate('/posts')
     }
- 
+
     return (
         <Container maxWidth="sm" className="topo">
             <form onSubmit={onSubmit}>
                 <Typography variant="h3" color="textSecondary" component="h1" align="center" >Formulário de cadastro postagem</Typography>
-                <TextField value={postagem.titulo} onChange={(e:ChangeEvent<HTMLInputElement>)=>updatedPostagem(e)} id="titulo" label="titulo" variant="outlined" name="titulo" margin="normal" fullWidth />
-                <TextField value={postagem.texto} onChange={(e:ChangeEvent<HTMLInputElement>)=>updatedPostagem(e)} id="texto" label="texto" name="texto" variant="outlined" margin="normal" fullWidth />
+                <TextField value={postagem.titulo} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedPostagem(e)} id="titulo" label="titulo" variant="outlined" name="titulo" margin="normal" fullWidth />
+                <TextField value={postagem.texto} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedPostagem(e)} id="texto" label="texto" name="texto" variant="outlined" margin="normal" fullWidth />
 
                 <FormControl >
                     <InputLabel id="demo-simple-select-helper-label">Tema </InputLabel>
-                    <Select 
-                    labelId="demo-simple-select-helper-label" 
-                    id="demo-simple-select-helper"
-                    onChange={(e) => buscaID(`/temas/${e.target.value}`,setTema,{
-                        headers:{
-                            'Authorization':token
-                        }
-                    })}>
+                    <Select
+                        labelId="demo-simple-select-helper-label"
+                        id="demo-simple-select-helper"
+                        onChange={(e) => buscaID(`/temas/${e.target.value}`, setTema, {
+                            headers: {
+                                'Authorization': token
+                            }
+                        })}>
                         {
-                            temas.map(tema => {
+                            temas.map(tema => (
                                 <MenuItem value={tema.id}>{tema.descricao}</MenuItem>
-                            })
+                            ))
                         }
                     </Select>
                     <FormHelperText>Escolha um tema para a postagem</FormHelperText>
