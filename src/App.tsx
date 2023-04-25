@@ -14,10 +14,13 @@ import CadastroPost from './components/postagens/cadastroPost/CadastroPost';
 import CadastroTema from './components/temas/cadastroTemas/CadastroTemas';
 import DeletarPostagem from './components/postagens/deletarPostagem/DeletarPostagem';
 import DeletarTema from './components/temas/deletarTemas/DeletarTema';
+import { Provider } from 'react-redux';
+import store from './store/Store';
 
+//provider -> permite que todas as rotas acessem o store
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <BrowserRouter>
         <Navbar />
         <div style={{ minHeight: '100vh' }}>
@@ -38,7 +41,7 @@ function App() {
         </div>
         <Footer />
       </BrowserRouter>
-    </>
+    </Provider>
   );
 }
 

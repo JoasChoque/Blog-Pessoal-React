@@ -6,6 +6,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useLocalStorage from 'react-use-localstorage';
 import { buscaID, deleteId } from '../../../services/Service';
 import Postagem from '../../../models/Postagem';
+import { useSelector } from 'react-redux';
+import { TokenState } from '../../../store/tokens/TokensReducer';
 
 function DeletarPostagem() {
   let navigate = useNavigate();
@@ -13,7 +15,9 @@ function DeletarPostagem() {
   //useParams -> hook responsavel para o envio do parametro ao chamar os métodos (id)
   const{id} = useParams<{id:string}>();
 
-  const[token,setToken] = useLocalStorage('token')
+  const token = useSelector<TokenState,TokenState['tokens']>(
+    (state)=>state.tokens
+)
 
   const [post,setPost] = useState<Postagem>()
 

@@ -5,13 +5,18 @@ import { Button, Grid, Typography } from "@material-ui/core";
 import { Box } from "@mui/material";
 import TabPostagem from "../../components/postagens/tabPostagem/TabPostagem";
 import ModalPostagem from "../../components/postagens/modalPostagem/ModalPostagem";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useLocalStorage from "react-use-localstorage";
+import { useSelector } from "react-redux";
+import { TokenState } from "../../store/tokens/TokensReducer";
 //p={x} -> Padding em todos os lados
 function Home() {
     let navigate = useNavigate()
 
-    const[token,setToken]=useLocalStorage('token')
+    //useSelector -> acessa a store, pega o token e atribui na constante 'token'
+    const token = useSelector<TokenState,TokenState['tokens']>(
+        (state)=>state.tokens
+    )
 
     useEffect(()=>{
         if(token ===''){
@@ -32,7 +37,10 @@ function Home() {
                         <Box marginRight={1}>
                             <ModalPostagem/>
                         </Box>
+                        
+                        <Link to='/posts'>
                         <Button variant="outlined" className="botao">Ver Postagens</Button>
+        	            </Link>
                     </Box>
                 </Grid>
                 <Grid item xs={6} >
