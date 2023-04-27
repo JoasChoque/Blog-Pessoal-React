@@ -8,6 +8,7 @@ import Tema from '../../../models/Tema';
 import { buscaID, deleteId } from '../../../services/Service';
 import { useSelector } from 'react-redux';
 import { TokenState } from '../../../store/tokens/TokensReducer';
+import { toast } from 'react-toastify';
 
 
 function DeletarTema() {
@@ -25,7 +26,16 @@ function DeletarTema() {
     //verificando se o usuario está logado
     useEffect(()=>{
         if(token==''){
-            alert('Você precisa estar logado')
+          toast.error('Você precisa estar logado!',{
+            position: 'top-right', //posição da notificação
+            autoClose: 3000, //fechamento automático, tmepo em ms
+            hideProgressBar: false, //progressão do tempo da barra desaparecer
+            closeOnClick:true, //fechar quando clicar
+            pauseOnHover: false, //pausa o tempo da notificação com o mouse encima
+            draggable: false, //move a posição da notificação
+            theme: 'colored',
+            progress: undefined
+        })
             navigate('/login')
         }
     },[token])
@@ -51,7 +61,16 @@ function DeletarTema() {
           'Authorization' : token
         }
       })
-      alert("Tema deletado com sucesso!")
+      toast.success('Tema deletado com Sucesso!',{
+        position: 'top-right', //posição da notificação
+        autoClose: 3000, //fechamento automático, tmepo em ms
+        hideProgressBar: false, //progressão do tempo da barra desaparecer
+        closeOnClick:true, //fechar quando clicar
+        pauseOnHover: false, //pausa o tempo da notificação com o mouse encima
+        draggable: false, //move a posição da notificação
+        theme: 'colored',
+        progress: undefined
+    })
     }
 
     function nao(){

@@ -5,6 +5,7 @@ import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import { Box } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import User from "../../models/User";
+import { toast } from "react-toastify";
 
 function Cadastro() {
     let history = useNavigate();
@@ -47,10 +48,28 @@ function Cadastro() {
         e.preventDefault()
         if (confirmaSenha == user.senha) {
            await cadastroUsuario(`/usuarios/cadastrar`, user, setUserResult)
-            alert('Usuário Cadastrado com sucesso')
+           toast.success('Usuário cadastrado com sucesso!',{
+            position: 'top-right', //posição da notificação
+            autoClose: 3000, //fechamento automático, tmepo em ms
+            hideProgressBar: false, //progressão do tempo da barra desaparecer
+            closeOnClick:true, //fechar quando clicar
+            pauseOnHover: false, //pausa o tempo da notificação com o mouse encima
+            draggable: false, //move a posição da notificação
+            theme: 'colored',
+            progress: undefined
+        })
         }
         else {
-            alert('Dados inconsistentes. Favor verificar as informações de cadastro.')
+            toast.error('Erro ao efetuar o cadastro, tente novamente',{
+                position: 'top-right', //posição da notificação
+                autoClose: 3000, //fechamento automático, tmepo em ms
+                hideProgressBar: false, //progressão do tempo da barra desaparecer
+                closeOnClick:true, //fechar quando clicar
+                pauseOnHover: false, //pausa o tempo da notificação com o mouse encima
+                draggable: false, //move a posição da notificação
+                theme: 'colored',
+                progress: undefined
+            })
         }
     }
 

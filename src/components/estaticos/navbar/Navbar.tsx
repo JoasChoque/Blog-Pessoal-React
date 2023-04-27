@@ -2,7 +2,7 @@ import React from 'react';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { Box } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { toast } from 'react-toastify';
 import './Navbar.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { TokenState } from '../../../store/tokens/TokensReducer';
@@ -22,7 +22,16 @@ function Navbar() {
         //seta o token para vazio, "adicionando" um valor vazio, fazendo com que as verificações
         //nos outros componentes fiquem como false
         dispatch(addToken(''))
-        alert('Deslogado com Sucesso')
+        toast.info('Usuário deslogad com Sucesso!',{
+            position: 'top-right', //posição da notificação
+            autoClose: 3000, //fechamento automático, tmepo em ms
+            hideProgressBar: false, //progressão do tempo da barra desaparecer
+            closeOnClick:true, //fechar quando clicar
+            pauseOnHover: false, //pausa o tempo da notificação com o mouse encima
+            draggable: false, //move a posição da notificação
+            theme: 'colored',
+            progress: undefined
+        })
         navigate('/login')
     }
 

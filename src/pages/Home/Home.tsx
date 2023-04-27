@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useLocalStorage from "react-use-localstorage";
 import { useSelector } from "react-redux";
 import { TokenState } from "../../store/tokens/TokensReducer";
+import { toast } from "react-toastify";
 //p={x} -> Padding em todos os lados
 function Home() {
     let navigate = useNavigate()
@@ -20,7 +21,16 @@ function Home() {
 
     useEffect(()=>{
         if(token ===''){
-            alert('Você precisa estar logado para poder utilizar este serviço')
+            toast.error('Você precisa estar logado!',{
+                position: 'top-right', //posição da notificação
+                autoClose: 3000, //fechamento automático, tmepo em ms
+                hideProgressBar: false, //progressão do tempo da barra desaparecer
+                closeOnClick:true, //fechar quando clicar
+                pauseOnHover: false, //pausa o tempo da notificação com o mouse encima
+                draggable: false, //move a posição da notificação
+                theme: 'colored',
+                progress: undefined
+            })
             navigate('/login')
         }
     },[token])

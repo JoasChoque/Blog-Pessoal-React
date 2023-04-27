@@ -5,10 +5,10 @@ import { Card, CardActions, CardContent, Button, Typography } from "@material-ui
 
 import './ListaTemas.css'
 import Tema from "../../../models/Tema";
-import useLocalStorage from "react-use-localstorage";
 import { busca } from "../../../services/Service";
 import { useSelector } from "react-redux";
 import { TokenState } from "../../../store/tokens/TokensReducer";
+import { toast } from "react-toastify";
 
 function ListaTemas() {
 
@@ -25,7 +25,16 @@ function ListaTemas() {
     //Redirecionando o usuário para o login caso ele não esteja logado
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado para ter acesso! Por favor, faça ologin')
+            toast.error('Você precisa estar logado para ter acesso, por favor efetue o Login!',{
+                position: 'top-right', //posição da notificação
+                autoClose: 3000, //fechamento automático, tmepo em ms
+                hideProgressBar: false, //progressão do tempo da barra desaparecer
+                closeOnClick:true, //fechar quando clicar
+                pauseOnHover: false, //pausa o tempo da notificação com o mouse encima
+                draggable: false, //move a posição da notificação
+                theme: 'colored',
+                progress: undefined
+            })
             navigate('/login')
         }
     }, [token])

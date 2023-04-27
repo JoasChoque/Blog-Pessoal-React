@@ -8,6 +8,7 @@ import { login } from '../../services/Service';
 import UserLogin from '../../models/UserLogin';
 import { useDispatch } from 'react-redux';
 import { addToken } from '../../store/tokens/Actions';
+import { toast } from 'react-toastify';
 
 function Login() {
 
@@ -51,7 +52,7 @@ function Login() {
 
     //hook useEffect permite executar funções sempre que alguma variavel sofrer alterações
     useEffect(()=>{
-        if(token != ''){
+        if(token !== ''){
             dispatch(addToken(token))
             history('/home')
         }
@@ -70,10 +71,27 @@ function Login() {
             //setToken -> definida na service, para pegar o valor do token
            await login (`/usuarios/logar`,userLogin,setToken)
             
-            alert('Usuário logado com sucesso')
+           toast.success('Usuário logado com Sucesso!',{
+            position: 'top-right', //posição da notificação
+            autoClose: 3000, //fechamento automático, tmepo em ms
+            hideProgressBar: false, //progressão do tempo da barra desaparecer
+            closeOnClick:true, //fechar quando clicar
+            pauseOnHover: false, //pausa o tempo da notificação com o mouse encima
+            draggable: false, //move a posição da notificação
+            theme: 'colored',
+            progress: undefined
+        })
         }catch(error){
-
-            alert('Dados do usuário incorretos, erro ao logar');
+            toast.error('Email/senha incorretos. Tente novamente',{
+                position: 'top-right', //posição da notificação
+                autoClose: 3000, //fechamento automático, tmepo em ms
+                hideProgressBar: false, //progressão do tempo da barra desaparecer
+                closeOnClick:true, //fechar quando clicar
+                pauseOnHover: false, //pausa o tempo da notificação com o mouse encima
+                draggable: false, //move a posição da notificação
+                theme: 'colored',
+                progress: undefined
+            })
         }
     }
 

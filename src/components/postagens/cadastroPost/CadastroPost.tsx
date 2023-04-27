@@ -8,6 +8,7 @@ import Postagem from '../../../models/Postagem';
 import { busca, buscaID, post, put } from '../../../services/Service';
 import { useSelector } from 'react-redux';
 import { TokenState } from '../../../store/tokens/TokensReducer';
+import { toast } from 'react-toastify';
 
 function CadastroPost() {
     let navigate = useNavigate()
@@ -23,7 +24,16 @@ function CadastroPost() {
 
     useEffect(() => {
         if (token === '') {
-            alert("Você precisa estar logado para acessar essa função!")
+            toast.error('Você precisa estar logado!',{
+                position: 'top-right', //posição da notificação
+                autoClose: 3000, //fechamento automático, tmepo em ms
+                hideProgressBar: false, //progressão do tempo da barra desaparecer
+                closeOnClick:true, //fechar quando clicar
+                pauseOnHover: false, //pausa o tempo da notificação com o mouse encima
+                draggable: false, //move a posição da notificação
+                theme: 'colored',
+                progress: undefined
+            })
             navigate('/login')
         }
     }, [token])
@@ -97,9 +107,27 @@ function CadastroPost() {
                     }
 
                 })
-                alert('Postagem atualizada com sucesso')
+                toast.success('Postagem atualizada com sucesso!',{
+                    position: 'top-right', //posição da notificação
+                    autoClose: 3000, //fechamento automático, tmepo em ms
+                    hideProgressBar: false, //progressão do tempo da barra desaparecer
+                    closeOnClick:true, //fechar quando clicar
+                    pauseOnHover: false, //pausa o tempo da notificação com o mouse encima
+                    draggable: false, //move a posição da notificação
+                    theme: 'colored',
+                    progress: undefined
+                })
             } catch (error) {
-                alert('Erro ao atualizar sua postagem, verifique os campos!')
+                toast.error('Erro ao atualizar sua postagem, tente novamente',{
+                    position: 'top-right', //posição da notificação
+                    autoClose: 3000, //fechamento automático, tmepo em ms
+                    hideProgressBar: false, //progressão do tempo da barra desaparecer
+                    closeOnClick:true, //fechar quando clicar
+                    pauseOnHover: false, //pausa o tempo da notificação com o mouse encima
+                    draggable: false, //move a posição da notificação
+                    theme: 'colored',
+                    progress: undefined
+                })
             }
         } else {
             try {
@@ -108,10 +136,28 @@ function CadastroPost() {
                         'Authorization': token
                     }
                 })
-                alert('Postagem cadastrada com sucesso')
+                toast.success('Postagem cadastrada com sucesso!',{
+                    position: 'top-right', //posição da notificação
+                    autoClose: 3000, //fechamento automático, tmepo em ms
+                    hideProgressBar: false, //progressão do tempo da barra desaparecer
+                    closeOnClick:true, //fechar quando clicar
+                    pauseOnHover: false, //pausa o tempo da notificação com o mouse encima
+                    draggable: false, //move a posição da notificação
+                    theme: 'colored',
+                    progress: undefined
+                })
             }
             catch (error) {
-                alert('Erro ao cadastrar sua postagem, tente novamente!')
+                toast.error('Erro ao cadastrar sua postagem, tente novamente',{
+                    position: 'top-right', //posição da notificação
+                    autoClose: 3000, //fechamento automático, tmepo em ms
+                    hideProgressBar: false, //progressão do tempo da barra desaparecer
+                    closeOnClick:true, //fechar quando clicar
+                    pauseOnHover: false, //pausa o tempo da notificação com o mouse encima
+                    draggable: false, //move a posição da notificação
+                    theme: 'colored',
+                    progress: undefined
+                })
             }
 
         }
